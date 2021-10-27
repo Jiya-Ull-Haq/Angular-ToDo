@@ -52,9 +52,18 @@ export class AppComponent implements OnInit {
     }
   }
 
-  update(todo: Todo) {
+  private delay(ms: number)
+  {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  update(todo: Todo) 
+  {
     this.todoStore.dispatch(new UpdateTodo({ todoId: todo.id }));
+    this.delay(5000);
+    this.todoStore.dispatch(new DeleteTodo({ todoId: todo.id }));
     this.todoStore.dispatch(new GetTodos());
+  
   }
 
   delete(todo: Todo) {
