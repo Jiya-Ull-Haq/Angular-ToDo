@@ -57,13 +57,18 @@ export class AppComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  private async sleepExample(todo: Todo)
+  {
+    await this.delay(5000);
+    this.todoStore.dispatch(new DeleteTodo({ todoId: todo.id }));
+    this.todoStore.dispatch(new GetTodos());
+  }
+
   update(todo: Todo) 
   {
     this.todoStore.dispatch(new UpdateTodo({ todoId: todo.id }));
-    this.delay(5000);
-    this.todoStore.dispatch(new DeleteTodo({ todoId: todo.id }));
+    this.sleepExample(todo);
     this.todoStore.dispatch(new GetTodos());
-  
   }
 
   delete(todo: Todo) {
