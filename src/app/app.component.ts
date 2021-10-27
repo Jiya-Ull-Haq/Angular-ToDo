@@ -52,22 +52,16 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private delay(ms: number)
+ private delay(ms: number)
   {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  private async sleepExample(todo: Todo)
-  {
-    await this.delay(5000);
-    this.todoStore.dispatch(new DeleteTodo({ todoId: todo.id }));
-    this.todoStore.dispatch(new GetTodos());
   }
 
   update(todo: Todo) 
   {
     this.todoStore.dispatch(new UpdateTodo({ todoId: todo.id }));
-    this.sleepExample(todo);
+    this.delay(5000);
+    this.todoStore.dispatch(new DeleteTodo({ todoId: todo.id }));
     this.todoStore.dispatch(new GetTodos());
   }
 
